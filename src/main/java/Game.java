@@ -10,14 +10,13 @@ import java.io.IOException;
 
 public class Game {
 
-    private int x = 10;
-    private int y = 10;
+    Hero hero = new Hero(10, 10);
 
     private Screen screen;
 
     private void draw() throws IOException {
         screen.clear();
-        screen.setCharacter(x, y, TextCharacter.fromCharacter('X')[0]);
+        hero.draw(screen);
         screen.refresh();
     }
     public Game() throws IOException {
@@ -43,15 +42,19 @@ public class Game {
 
     private void processKey(KeyStroke key) throws IOException {
         System.out.println(key);
+        int x = hero.getX();
+        int y = hero.getY();
         if (key.getKeyType() == KeyType.ArrowUp)
-            y = y -1;
+            hero.moveUp();
         else if (key.getKeyType() == KeyType.ArrowDown)
-            y = y +1;
+            hero.moveDown();
         else if (key.getKeyType() == KeyType.ArrowRight)
-            x = x +1;
+            hero.moveRight();
         else if (key.getKeyType() == KeyType.ArrowLeft)
-            x = x -1;
+            hero.moveLeft();
     }
+
+
 
 }
 
