@@ -1,5 +1,6 @@
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextCharacter;
+import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
@@ -16,7 +17,7 @@ public class Game {
 
     private void draw() throws IOException {
         this.screen.clear();
-        this.arena.draw(screen);
+        this.arena.draw(screen.newTextGraphics());
         this.screen.refresh();
     }
     public Game() throws IOException {
