@@ -1,3 +1,4 @@
+import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
@@ -10,18 +11,19 @@ import java.io.IOException;
 
 public class Game {
 
-    Hero hero = new Hero(10, 10);
-
+    private Arena arena;
     private Screen screen;
 
     private void draw() throws IOException {
-        screen.clear();
-        hero.draw(screen);
-        screen.refresh();
+        this.screen.clear();
+        this.arena.draw(screen);
+        this.screen.refresh();
     }
     public Game() throws IOException {
-        Terminal terminal = new
-            DefaultTerminalFactory().createTerminal();
+        arena = new Arena(40,20);
+        TerminalSize terminalSize = new TerminalSize(40, 20);
+            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
+            Terminal terminal = terminalFactory.createTerminal();
         screen = new TerminalScreen(terminal);
         screen.setCursorPosition(null); // we don't need a cursor
         screen.startScreen(); // screens must be started
@@ -29,10 +31,11 @@ public class Game {
     }
 
     public void run() throws IOException {
+        draw();
         while (true) {
-            draw();
             KeyStroke key = screen.readInput();
             processKey(key);
+            draw();
             if (key.getKeyType() == KeyType.EOF)
                 break;
             else if (key.getKeyType() == KeyType.Character && key.getCharacter() == 'q')
@@ -42,20 +45,8 @@ public class Game {
 
     private void processKey(KeyStroke key) throws IOException {
         System.out.println(key);
-        int x = hero.getX();
-        int y = hero.getY();
-        if (key.getKeyType() == KeyType.ArrowUp)
-            hero.moveUp();
-        else if (key.getKeyType() == KeyType.ArrowDown)
-            hero.moveDown();
-        else if (key.getKeyType() == KeyType.ArrowRight)
-            hero.moveRight();
-        else if (key.getKeyType() == KeyType.ArrowLeft)
-            hero.moveLeft();
+        arena.processKey(key);
     }
-
-
-
 }
 
 
