@@ -37,8 +37,9 @@ public class Arena {
         if (position.getX() > width - 1) return false;
         if (position.getY() < 0) return false;
         if (position.getY() > height - 1) return false;
+
         for (Wall wall : walls) {
-            if (wall.getPosition().getX() == position.getX() && wall.getPosition().getY() == position.getY()) return false;
+            if (wall.getPosition().equals(position)) return false;
         }
         return true;
     }

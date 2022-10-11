@@ -5,18 +5,12 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
 
-public class Hero {
-    private Position position;
-
+public class Hero extends Element{
 
     public Hero(int x, int y) {
-        this.position = new Position(x, y);
+        super(x,y);
     }
 
-
-    public Position getPosition() {
-        return this.position;
-    }
 
     public Position moveUp() {
         return new Position(position.getX(), position.getY() - 1);
@@ -29,9 +23,6 @@ public class Hero {
         return new Position(position.getX() - 1, position.getY());
     }
 
-    public void setPosition(Position position) {
-        this.position = position;
-    }
 
     public void draw(TextGraphics graphics) {
         graphics.setForegroundColor(TextColor.Factory.fromString("#FFFF33"));
