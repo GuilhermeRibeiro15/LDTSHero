@@ -46,7 +46,7 @@ public class Game {
 
     private void processKey(KeyStroke key) throws IOException {
         System.out.println(key);
-        arena.processKey(key);
+        arena.processKey(key, screen);
     }
 }
 
